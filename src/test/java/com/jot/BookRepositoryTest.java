@@ -1,6 +1,9 @@
 package com.jot;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +13,11 @@ class BookRepositoryTest {
 
 	@Autowired
 	BookRepository bookRepo;
+	
+	@BeforeEach
+	public void clean() {
+		bookRepo.deleteAll();
+	}
 	
 	@Test
 	void testInsertDeleteGet() {
@@ -22,9 +30,9 @@ class BookRepositoryTest {
 		
 		bookRepo.deleteById(1);
 		
-		result = bookRepo.findById(1).get();
+		Optional<Book> result2 = bookRepo.findById(1);
 		
-		Assertions.assertNull(result);
+		Assertions.assertNull(result2.orElse(null));
 			
 	}
 
