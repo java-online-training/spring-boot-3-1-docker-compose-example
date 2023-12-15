@@ -9,31 +9,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BookRepositoryTest {
+public class BookRepositoryTest {
 
 	@Autowired
-	BookRepository bookRepo;
-	
+	private BookRepository bookRepo;
+
 	@BeforeEach
 	public void clean() {
 		bookRepo.deleteAll();
 	}
-	
+
 	@Test
 	void testInsertDeleteGet() {
-		
-		bookRepo.insert(new Book(1,"Lord Of the Rings", "J.R.R. Tolkien"));
-		
-		Book result = bookRepo.findById(1).get();
-		
-		Assertions.assertEquals("Lord Of the Rings", result.name());
-		
-		bookRepo.deleteById(1);
-		
-		Optional<Book> result2 = bookRepo.findById(1);
-		
-		Assertions.assertNull(result2.orElse(null));
-			
-	}
 
+		bookRepo.insert(new Book(1, "Lord Of the Rings", "J.R.R. Tolkien"));
+
+		Book result = bookRepo.findById(1).get();
+
+		Assertions.assertEquals("Lord Of the Rings", result.name());
+
+		bookRepo.deleteById(1);
+
+		Optional<Book> result2 = bookRepo.findById(1);
+
+		Assertions.assertNull(result2.orElse(null));
+
+	}
 }
